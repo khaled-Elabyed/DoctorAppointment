@@ -1,0 +1,44 @@
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import {ArrowRight} from 'lucide-react'
+
+const Doctors = () => {
+  const [doctors , setDoctors] = useState([])
+  useEffect(()=>{
+    const fetchDoctor = async()=>{
+        try {
+        const res = await fetch('http://localhost:3500/api/doctors/AllDoctors')
+        const data = await res.json()
+        if(!res.ok)
+             throw new Error(data.message || "Falied to Fetch Doctors")
+            setDoctors(data.slice(0,3))
+        } catch (error) {
+        console.log(error)    
+        }
+    }
+    fetchDoctor()
+  },[])
+    return (
+    <div className='bg-gray-100 p-8 min-h-screen'>
+        <h2 className='text-3xl text-center font-bold mb-8 text-[#008e9b]'>Our Doctors</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {doctors?.map((doc)=>(
+                <div key={doc?._id} className="bg-white rounded-lg shadow-lg p-4 text-center">
+                  <Link to={`/doctor/${doc?._id}`}>
+                    <img src={`http://localhost:3500/uploads/${doc?.image}`} className='w-32 h-32 rounded-full mx-auto border object-cover mb-4' alt="" />
+                    <h3 className='text-xl font-semibold'>{doc?.name}</h3>
+                    <p className='text-gray-600'>{doc?.specialty}</p>
+                    <p className='text-gray-500 text-sm'>{doc?.ExperienceYear} Years of Experince</p>
+                  </Link>
+                </div>
+            ))}
+        </div>
+        <div className="flex justify-center items-center mt-8">
+                <Link to={'/AllDoctors'} className='text-black bg-[#46daea] flex justify-center items-center gap-2 text-center 
+                rounded p-3 px-6 hover:bg-[#43b0ba] transition'>See All Doctors <ArrowRight/></Link>
+            </div>
+    </div>
+  )
+}
+
+export default Doctors
