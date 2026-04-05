@@ -22,7 +22,7 @@ const Register = () => {
   const handleSubmit = async (values, { setSubmitting }) => {
     setError(null);
     try {
-      const res = await fetch("http://localhost:3500/api/users/register", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || `${import.meta.env.VITE_API_URL || 'http://localhost:3500'}`}/api/users/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),

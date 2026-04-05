@@ -5,7 +5,7 @@ const AllDoctors = () => {
   useEffect(()=>{
     const fetchDoctor = async()=>{
         try {
-        const res = await fetch('http://localhost:3500/api/doctors/AllDoctors')
+        const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3500'}/api/doctors/AllDoctors`)
         const data = await res.json()
         if(!res.ok)
              throw new Error(data.message || "Falied to Fetch Doctors")

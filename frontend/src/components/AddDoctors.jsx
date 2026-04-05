@@ -34,7 +34,7 @@ const handlesubmit = async(e)=> {
         formData.append("ExperienceYear",form.ExperienceYear)
         formData.append("description" , form.description)
         if(form.image) formData.append("image" , form.image)
-        const res = await fetch("http://localhost:3500/api/doctors/AddDoctor",
+        const res = await fetch(`${import.meta.env.VITE_API_URL || `${import.meta.env.VITE_API_URL || 'http://localhost:3500'}`}/api/doctors/AddDoctor`,
         {
             method: "Post",
             headers: {Authorization: `Bearer ${token}`},

@@ -12,7 +12,7 @@ function MyAppointments() {
     const fetchAppointments = async () => {
       try {
         const token = localStorage.getItem("token")
-        const res = await fetch('http://localhost:3500/api/appointments/get', {
+        const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3500'}/api/appointments/get`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

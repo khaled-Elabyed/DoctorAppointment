@@ -11,7 +11,7 @@ const Appointment = () => {
   });
   useEffect( ()=>{
     const fetchDoctor = async () =>{
-      const res = await fetch("http://localhost:3500/api/doctors/AllDoctors")
+      const res = await fetch(`${import.meta.env.VITE_API_URL || `${import.meta.env.VITE_API_URL || 'http://localhost:3500'}`}/api/doctors/AllDoctors`)
       const data = await res.json()
       setDoctors(data)
     }
@@ -21,7 +21,7 @@ const Appointment = () => {
   const handlesubmit = async (e)=>{
     e.preventDefault()
     const token = localStorage.getItem("token")
-    const res = await fetch('http://localhost:3500/api/appointments/book',{
+    const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3500'}/api/appointments/book`,{
         method: "Post",
         headers: {"Content-Type" : "application/json",
         Authorization: `Bearer ${token}`,

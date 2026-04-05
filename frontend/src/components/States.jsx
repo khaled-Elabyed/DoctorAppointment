@@ -6,8 +6,8 @@ const States = () => {
     useEffect(()=>{
         const fetchState = async() =>{
             try {
-                const docrorsStates = await fetch("http://localhost:3500/api/doctors/count")
-                const departmentsState = await fetch("http://localhost:3500/api/department/count")
+                const docrorsStates = await fetch(`${import.meta.env.VITE_API_URL || `${import.meta.env.VITE_API_URL || 'http://localhost:3500'}`}/api/doctors/count`)
+                const departmentsState = await fetch(`${import.meta.env.VITE_API_URL || `${import.meta.env.VITE_API_URL || 'http://localhost:3500'}`}/api/department/count`)
                 const doctorsData = await docrorsStates.json()
                 const departmentsData = await departmentsState.json()
                 setdoctorsCount(doctorsData.count || 0)
