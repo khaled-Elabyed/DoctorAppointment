@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const API_URL = `${import.meta.env.VITE_API_URL || `${import.meta.env.VITE_API_URL || 'http://localhost:3500'}`}/api/department`;
+const API_URL =`${import.meta.env.VITE_API_URL}/api/department`;
 
 const Department = () => {
   const [departments, setDepartments] = useState([]);
@@ -14,7 +14,7 @@ const Department = () => {
       const res = await fetch(`${API_URL}/Alldepartments`);
       const data = await res.json();
       setDepartments(data);
-    } catch (err) {
+    } catch (err) { 
       setError("Failed to fetch departments");
     }
   };
@@ -113,7 +113,7 @@ const Department = () => {
           <div key={dept._id} className="border rounded p-4 shadow-sm bg-gray-50">
             {dept.image && (
               <img
-                src={`http://localhost:3500/uploads/${dept.image}`}
+                src={dept.image?.startsWith("http") ? dept.image : `${import.meta.env.VITE_API_URL}/uploads/${dept.image}`}
                 alt={dept.name}
                 className="w-full h-40 object-cover rounded mb-2"
               />

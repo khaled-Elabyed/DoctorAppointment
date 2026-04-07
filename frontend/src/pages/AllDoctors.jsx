@@ -5,7 +5,7 @@ const AllDoctors = () => {
   useEffect(()=>{
     const fetchDoctor = async()=>{
         try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3500'}/api/doctors/AllDoctors`)
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/doctors/AllDoctors`)
         const data = await res.json()
         if(!res.ok)
              throw new Error(data.message || "Falied to Fetch Doctors")
@@ -23,7 +23,8 @@ const AllDoctors = () => {
             {doctors?.map((doc)=>(
                 <div key={doc._id} className="bg-white rounded-lg shadow-lg p-4 text-center">
                     <Link to={`/doctor/${doc?._id}`}>
-                    <img src={`http://localhost:3500/uploads/${doc?.image}`} className='w-32 h-32 rounded-full mx-auto border object-cover mb-4' alt="" />
+                    <img src={doc?.image?.startsWith("http") ? doc.image : `${import.meta.env.VITE_API_URL}/uploads/${doc?.image}`}
+                     className='w-32 h-32 rounded-full mx-auto border object-cover mb-4' alt="" />
                     <h3 className='text-xl font-semibold'>{doc?.name}</h3>
                     <p className='text-gray-600'>{doc?.specialty}</p>
                     <p className='text-gray-500 text-sm'>{doc?.ExperienceYear} Years of Experince</p>

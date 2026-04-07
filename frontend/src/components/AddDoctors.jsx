@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { AuthContext } from '../context/AuthContext'
-
+import defaultImage from "../assets/image/download.webp"
 
 const AddDoctors = () => {
 const {user} = useContext(AuthContext)
@@ -34,7 +34,7 @@ const handlesubmit = async(e)=> {
         formData.append("ExperienceYear",form.ExperienceYear)
         formData.append("description" , form.description)
         if(form.image) formData.append("image" , form.image)
-        const res = await fetch(`${import.meta.env.VITE_API_URL || `${import.meta.env.VITE_API_URL || 'http://localhost:3500'}`}/api/doctors/AddDoctor`,
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/doctors/AddDoctor`,
         {
             method: "Post",
             headers: {Authorization: `Bearer ${token}`},
@@ -63,7 +63,7 @@ const handlesubmit = async(e)=> {
             <div className="flex flex-col items-center w-1/3 ">
             <div className="w-36  rounded-full  overflow-hidden object-cover">
             {preview ? (<img src={preview} className='w-full h-full object-cover' />):
-            (<img src="src/assets/image/download.webp" alt="" />)
+            (<img src={defaultImage} alt="" />)
             }
             </div>
             <button type='button'  onClick={()=> document.getElementById('fileinput').click()} className='mt-4'>Choose Image</button>

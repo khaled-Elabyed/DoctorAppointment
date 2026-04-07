@@ -11,7 +11,7 @@ const Appointment = () => {
   });
   useEffect( ()=>{
     const fetchDoctor = async () =>{
-      const res = await fetch(`${import.meta.env.VITE_API_URL || `${import.meta.env.VITE_API_URL || 'http://localhost:3500'}`}/api/doctors/AllDoctors`)
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/doctors/AllDoctors`)
       const data = await res.json()
       setDoctors(data)
     }
@@ -21,7 +21,7 @@ const Appointment = () => {
   const handlesubmit = async (e)=>{
     e.preventDefault()
     const token = localStorage.getItem("token")
-    const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3500'}/api/appointments/book`,{
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/appointments/book`,{
         method: "Post",
         headers: {"Content-Type" : "application/json",
         Authorization: `Bearer ${token}`,
@@ -40,9 +40,11 @@ const Appointment = () => {
   }
 
   if(!user){
-    <div className="flex items-center justify-center h-screen text-xl">You Need to Login To An Appointment.</div>
-  }
   return(
+    <div className="flex items-center justify-center h-screen text-xl">You Need to Login To An Appointment.</div>
+  )
+}
+return (
   <div className="bg-gray-100 flex justify-center items-center h-screen">   
   <form action="" onSubmit={handlesubmit} className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
     <h2 className="text-2xl text-center mb-8 font-bold">Add Appointment</h2>
@@ -80,7 +82,7 @@ const Appointment = () => {
     <button type="submit" className="w-full p-2 rounded">submit</button>
   </form>
   </div>
-)
-};
 
+);  
+};
 export default Appointment;

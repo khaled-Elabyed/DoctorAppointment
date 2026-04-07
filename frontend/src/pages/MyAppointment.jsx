@@ -12,7 +12,7 @@ function MyAppointments() {
     const fetchAppointments = async () => {
       try {
         const token = localStorage.getItem("token")
-        const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3500'}/api/appointments/get`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/appointments/get`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -32,7 +32,7 @@ function MyAppointments() {
   const cancelAppointment = async (id) => {
     try {
       const token = localStorage.getItem("token")
-      const res = await fetch(`http://localhost:3500/api/appointments/deleteAppointment/${id}`,
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/appointments/deleteAppointment/${id}`,
         {
           method: "DELETE", 
           headers: {
@@ -68,7 +68,7 @@ function MyAppointments() {
               <div className='flex items-center gap-4'>
                 <img
                   className='w-20 h-20 rounded-full object-cover border'
-                  src={`http://localhost:3500/uploads/${app.doctor?.image}`}
+                  src={app.doctor?.image?.startsWith("http") ? app.doctor.image : `${import.meta.env.VITE_API_URL}/uploads/${app.doctor?.image}`}
                   alt={app.doctor?.name}
                 />
                 <div>

@@ -5,7 +5,7 @@ const Departments = () => {
   const [activeTab , setactiveTab] = useState(null)
 
   useEffect(()=>{
-    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3500'}/api/department/Alldepartments`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/department/Alldepartments`)
     .then((res)=>res.json())
     .then((data)=>{setdepartments(data)
     if(data.length > 0){ setactiveTab(data[0]._id)
