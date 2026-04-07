@@ -3,11 +3,12 @@ import doctor from "../Models/doctor.model.js";
 export const AddDoctor = async (req,res)=> {
     try {
     const {name , specialty  , description , ExperienceYear } = req.body
-    const image = req.file ? req.file.filename : null
+    const image = req.file ? req.file.path : null
     if(!name || !specialty || !image || !description || !ExperienceYear){
         return res.status(400).json({message: "All Fileds are required"})
     }
-    const newDoctor = await new doctor({name , specialty , description , ExperienceYear , image:req.file?.filename})
+    
+    const newDoctor = await new doctor({name , specialty , description , ExperienceYear , image: req.file?.path})
     const savedDoctor = await newDoctor.save()
     return res.status(201).json({message: "Doctor Added Successfully", data: savedDoctor})
     } catch (error) {
